@@ -10,6 +10,7 @@ import { UserLoginBody } from "../Interface/Network/UserLoginBody";
 import CBDCService from "../Network/CBDCService";
 import { APIENDPOINTS } from "../Network/Endpoints";
 import { useNavigate } from "react-router-dom";
+import { Colors } from "../Utils/Colors";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -21,8 +22,8 @@ export default function Login() {
       userName: data.get("email"),
       password: data.get("password"),
     };
-    // navigate("/otp");
-    let userLoginResponse = await CBDCService.userLogin(userLogin);
+    navigate("/otp");
+    // let userLoginResponse = await CBDCService.userLogin(userLogin);
     // console.log(userLoginResponse);
   };
   return (
@@ -35,9 +36,9 @@ export default function Login() {
           alignItems: "center",
         }}
       >
-        <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+        {/* <Avatar sx={{ m: 1, bgcolor: Colors.PRIMARY}}>
           <LockOutlinedIcon />
-        </Avatar>
+        </Avatar> */}
         <Typography component="h1" variant="h5">
           Login
         </Typography>
@@ -65,9 +66,8 @@ export default function Login() {
           <Button
             type="submit"
             fullWidth
-            color="secondary"
             variant="contained"
-            sx={{ mt: 3, mb: 2, height: 60 }}
+            sx={{ mt: 3, mb: 2, height: 60, color: Colors.PRIMARY }}
           >
             Login
           </Button>
