@@ -62,7 +62,6 @@ const OTP = () => {
         >
           {digits.map((digit, index) => (
             <input
-              style={{ borderColor: Colors.PRIMARY }}
               type="text"
               key={index}
               maxLength={1}
@@ -74,10 +73,16 @@ const OTP = () => {
         </form>
         <Button
           type="submit"
-          color="error"
+          color="primary"
           variant="outlined"
-          sx={{ mt: 3, mb: 2, height: 40, border: 1.5, }}
-          style={{borderColor:Colors.PRIMARY}}
+          sx={{
+            mt: 3,
+            mb: 2,
+            height: 40,
+            border: 2,
+            borderColor: Colors.PRIMARY,
+            fontWeight: "bold",
+          }}
           onClick={verifyOtp}
         >
           Verify OTP

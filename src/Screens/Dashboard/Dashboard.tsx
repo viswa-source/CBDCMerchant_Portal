@@ -19,6 +19,7 @@ import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
 import CanvasJSReact from "../../Components/CanvasJS/canvasjs.react";
+import { Colors } from "../../Utils/Colors";
 
 const drawerWidth = 240;
 
@@ -108,47 +109,59 @@ export default function Dashboard() {
   var options = {
     animationEnabled: true,
     title: {
-      text: "ACME Corporation Apparel Sales"
+      text: "ACME Corporation Apparel Sales",
     },
-    data: [{
-      type: "doughnut",
-      innerRadius: "40%",
-      showInLegend: true,
-      legendText: "{label}",
-      indexLabel: "{label}: #percent%",
-      dataPoints: [
-        { label: "Department Stores", y: 6492917 },
-        { label: "Discount Stores", y: 7380554 },
-        { label: "Stores for Men / Women", y: 1610846 },
-        { label: "Teenage Specialty Stores", y: 950875 },
-        { label: "All other outlets", y: 900000 }
-      ]
-    }]
+    data: [
+      {
+        type: "doughnut",
+        innerRadius: "40%",
+        showInLegend: true,
+        legendText: "{label}",
+        indexLabel: "{label}: #percent%",
+        dataPoints: [
+          { label: "Department Stores", y: 6492917 },
+          { label: "Discount Stores", y: 7380554 },
+          { label: "Stores for Men / Women", y: 1610846 },
+          { label: "Teenage Specialty Stores", y: 950875 },
+          { label: "All other outlets", y: 900000 },
+        ],
+      },
+    ],
   };
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
-      <AppBar position="fixed" open={open} color={"secondary"}>
+      <AppBar
+        position="fixed"
+        open={open}
+        style={{
+          backgroundColor: "white",
+          boxShadow: "2px 2px rgb(243, 243, 243)",
+        }}
+      >
         <Toolbar>
           <IconButton
-            color="inherit"
             aria-label="open drawer"
             onClick={handleDrawerOpen}
             edge="start"
             sx={{
               marginRight: 5,
+              color: Colors.PRIMARY,
+              bgcolor: Colors.BTN_SELECTED,
               ...(open && { display: "none" }),
             }}
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap component="div">
+          <Typography variant="h6" noWrap component="div" color={"black"}>
             CBDC Merchant Dashboard
           </Typography>
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={open}>
-        <DrawerHeader>
+        <DrawerHeader style={{ justifyContent: "space-between" }}>
+          <Typography ml={3}>Viswa</Typography>
+
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === "rtl" ? (
               <ChevronRightIcon />
@@ -158,10 +171,17 @@ export default function Dashboard() {
           </IconButton>
         </DrawerHeader>
         <Divider />
-        <List>
+        <List
+          sx={{
+            "& .MuiListItemButton-root:hover": {
+              bgcolor: Colors.BTN_SELECTED,
+            },
+          }}
+        >
           {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
             <ListItem key={text} disablePadding sx={{ display: "block" }}>
               <ListItemButton
+                className="list_item_btn"
                 sx={{
                   minHeight: 48,
                   justifyContent: open ? "initial" : "center",
@@ -173,6 +193,7 @@ export default function Dashboard() {
                     minWidth: 0,
                     mr: open ? 3 : "auto",
                     justifyContent: "center",
+                    color: Colors.PRIMARY,
                   }}
                 >
                   {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
@@ -182,8 +203,13 @@ export default function Dashboard() {
             </ListItem>
           ))}
         </List>
-        <Divider />
-        <List>
+        <List
+          sx={{
+            "& .MuiListItemButton-root:hover": {
+              bgcolor: Colors.BTN_SELECTED,
+            },
+          }}
+        >
           {["All mail", "Trash", "Spam"].map((text, index) => (
             <ListItem key={text} disablePadding sx={{ display: "block" }}>
               <ListItemButton
@@ -198,6 +224,7 @@ export default function Dashboard() {
                     minWidth: 0,
                     mr: open ? 3 : "auto",
                     justifyContent: "center",
+                    color: Colors.PRIMARY,
                   }}
                 >
                   {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
@@ -208,7 +235,10 @@ export default function Dashboard() {
           ))}
         </List>
       </Drawer>
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+      <Box
+        component="main"
+        sx={{ flexGrow: 1, p: 3, bgcolor: Colors.DASHBOARD }}
+      >
         {/* <CanvasJSChart options={options} /> */}
         <DrawerHeader />
       </Box>
