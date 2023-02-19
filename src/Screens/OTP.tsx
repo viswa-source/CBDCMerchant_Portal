@@ -26,6 +26,7 @@ const OTP = () => {
     } else if (!value && digitRefs.current[index - 1]) {
       digitRefs.current[index - 1].focus();
     }
+    console.log(digitRefs.current[index + 1]);
   };
   function verifyOtp() {
     navigate("/dashboard");
@@ -76,8 +77,8 @@ const OTP = () => {
           type="submit"
           color="error"
           variant="outlined"
-          sx={{ mt: 3, mb: 2, height: 40, border: 1.5, }}
-          style={{borderColor:Colors.PRIMARY}}
+          sx={{ mt: 3, mb: 2, height: 40, border: 1.5 }}
+          style={{ borderColor: Colors.PRIMARY }}
           onClick={verifyOtp}
         >
           Verify OTP
