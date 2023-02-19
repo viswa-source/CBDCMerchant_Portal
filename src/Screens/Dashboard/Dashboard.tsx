@@ -18,9 +18,9 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
-import CanvasJSReact from "../../Components/CanvasJS/canvasjs.react";
+import Chart from "./Chart";
+import Graph from "./Graph";
 import { Colors } from "../../Utils/Colors";
-
 const drawerWidth = 240;
 
 const openedMixin = (theme: Theme): CSSObject => ({
@@ -104,30 +104,6 @@ export default function Dashboard() {
     setOpen(false);
   };
 
-  var CanvasJS = CanvasJSReact.CanvasJS;
-  var CanvasJSChart = CanvasJSReact.CanvasJSChart;
-  var options = {
-    animationEnabled: true,
-    title: {
-      text: "ACME Corporation Apparel Sales",
-    },
-    data: [
-      {
-        type: "doughnut",
-        innerRadius: "40%",
-        showInLegend: true,
-        legendText: "{label}",
-        indexLabel: "{label}: #percent%",
-        dataPoints: [
-          { label: "Department Stores", y: 6492917 },
-          { label: "Discount Stores", y: 7380554 },
-          { label: "Stores for Men / Women", y: 1610846 },
-          { label: "Teenage Specialty Stores", y: 950875 },
-          { label: "All other outlets", y: 900000 },
-        ],
-      },
-    ],
-  };
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
@@ -239,6 +215,8 @@ export default function Dashboard() {
         component="main"
         sx={{ flexGrow: 1, p: 3, bgcolor: Colors.DASHBOARD }}
       >
+        <Chart />
+        <Graph />
         {/* <CanvasJSChart options={options} /> */}
         <DrawerHeader />
       </Box>

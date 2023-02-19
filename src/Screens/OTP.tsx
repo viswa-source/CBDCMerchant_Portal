@@ -26,6 +26,7 @@ const OTP = () => {
     } else if (!value && digitRefs.current[index - 1]) {
       digitRefs.current[index - 1].focus();
     }
+    console.log(digitRefs.current[index + 1]);
   };
   function verifyOtp() {
     navigate("/dashboard");
