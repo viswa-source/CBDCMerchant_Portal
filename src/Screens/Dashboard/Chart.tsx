@@ -1,11 +1,10 @@
+import Box from "@mui/material/Box";
 import CanvasJSReact from "../../Components/CanvasJS/canvasjs.react";
+import { Colors } from "../../Utils/Colors";
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 const Chart = () => {
   const options = {
     animationEnabled: true,
-    title: {
-      text: "ACME Corporation Apparel Sales",
-    },
     data: [
       {
         type: "doughnut",
@@ -25,9 +24,9 @@ const Chart = () => {
   };
 
   return (
-    <div>
+    <Box component="main" sx={{ flex:2, p: 3, bgcolor: Colors.DASHBOARD,mt:'3%' }}>
       <CanvasJSChart options={options} />
-    </div>
+    </Box>
   );
 };
 

@@ -21,6 +21,12 @@ import MailIcon from "@mui/icons-material/Mail";
 import Chart from "./Chart";
 import Graph from "./Graph";
 import { Colors } from "../../Utils/Colors";
+import Avatar from "@mui/material/Avatar";
+import STRINGS from "../../Strings/STRINGS";
+import Grid from "@mui/material/Grid";
+import { useAppDispatch, useAppSelector } from "../../Redux/Hooks/hooks";
+import DashBoardCard from "../../Components/Card/DashboardCard";
+import { getTransactionList } from "../../Redux/DashboardSlice/Dashboardslice";
 const drawerWidth = 240;
 
 const openedMixin = (theme: Theme): CSSObject => ({
@@ -94,12 +100,26 @@ const Drawer = styled(MuiDrawer, {
 
 export default function Dashboard() {
   const theme = useTheme();
+  const dispatch = useAppDispatch();
+  const ProfileData = useAppSelector(
+    (state) => state.dashBoardState.WalletInfo
+  );
+  console.log(ProfileData);
   const [open, setOpen] = React.useState(false);
 
   const handleDrawerOpen = () => {
     setOpen(true);
   };
-
+  React.useEffect(() => {
+   dispatch(
+      getTransactionList({
+        customerid: ProfileData?.mobilenumber,
+        fromdate: "2023-01-21",
+        todate: "2023-02-16",
+        username: "olive1",
+      })
+    );
+  }, []);
   const handleDrawerClose = () => {
     setOpen(false);
   };
@@ -132,6 +152,26 @@ export default function Dashboard() {
           <Typography variant="h6" noWrap component="div" color={"black"}>
             CBDC Merchant Dashboard
           </Typography>
+
+          <Avatar
+            sx={{
+              bgcolor: Colors.PRIMARY,
+              marginLeft: "auto",
+              textTransform: "capitalize",
+              marginRight: "0.5%",
+            }}
+          >
+            {ProfileData?.merchantName.slice(0, 1)}
+          </Avatar>
+          <Typography
+            variant="subtitle2"
+            noWrap
+            component="div"
+            color={"black"}
+            textTransform="capitalize"
+          >
+            {ProfileData?.merchantName}
+          </Typography>
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={open}>
@@ -154,7 +194,7 @@ export default function Dashboard() {
             },
           }}
         >
-          {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
+          {STRINGS.Dashboard.DRAWER_MENU.map(({ text }, index) => (
             <ListItem key={text} disablePadding sx={{ display: "block" }}>
               <ListItemButton
                 className="list_item_btn"
@@ -179,47 +219,39 @@ export default function Dashboard() {
             </ListItem>
           ))}
         </List>
-        <List
-          sx={{
-            "& .MuiListItemButton-root:hover": {
-              bgcolor: Colors.BTN_SELECTED,
-            },
-          }}
-        >
-          {["All mail", "Trash", "Spam"].map((text, index) => (
-            <ListItem key={text} disablePadding sx={{ display: "block" }}>
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? "initial" : "center",
-                  px: 2.5,
-                }}
-              >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : "auto",
-                    justifyContent: "center",
-                    color: Colors.PRIMARY,
-                  }}
-                >
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
       </Drawer>
-      <Box
-        component="main"
-        sx={{ flexGrow: 1, p: 3, bgcolor: Colors.DASHBOARD }}
-      >
-        <Chart />
-        <Graph />
-        {/* <CanvasJSChart options={options} /> */}
+      <Box component="main" sx={{ flexGrow: 1, bgcolor: Colors.DASHBOARD }}>
         <DrawerHeader />
       </Box>
+      <Grid
+        container
+        spacing={{ xs: 2, md: 3 }}
+        columns={{ xs: 4, sm: 8, md: 12 }}
+        bgcolor={Colors.DASHBOARD}
+        height="100vh"
+        pt="10vh"
+      >
+        <Grid
+          item
+          xs={12}
+          // columns={{ xs: 4, sm: 8, md: 12 }}
+          sx={{
+            display: "flex",
+            justifyContent: "space-around",
+            flexWrap: "wrap",
+          }}
+        >
+          {[1, 2, 3].map((el) => (
+            <DashBoardCard />
+          ))}
+        </Grid>
+        <Grid item xs={8}>
+          <Graph />
+        </Grid>
+        <Grid item xs={4}>
+          <Chart />
+        </Grid>
+      </Grid>
     </Box>
   );
 }

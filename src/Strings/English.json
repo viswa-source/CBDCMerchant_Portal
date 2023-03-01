@@ -1,0 +1,10 @@
+{
+  "Dashboard": {
+    "DRAWER_MENU": [
+      { "text": "Inbox" },
+      { "text": "Starred" },
+      { "text": "Send Email" },
+      { "text": "Drafts" }
+    ]
+  }
+}
